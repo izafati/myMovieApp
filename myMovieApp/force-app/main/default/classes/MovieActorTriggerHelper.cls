@@ -7,21 +7,21 @@ public with sharing class MovieActorTriggerHelper {
         for(MovieActor__c movieActor : movieActorList) {
             actorsIds.add(movieActor.MD_to_Actors__c);
         }
-       
-        for (AggregateResult movieActor : [SELECT MD_to_Actors__c, Count(MD_to_Movies__c) MoviesCount 
+        List<AggregateResult> movieActors = [SELECT MD_to_Actors__c, Count(MD_to_Movies__c) MoviesCount 
         FROM MovieActor__c 
         WHERE MD_to_Actors__c in: actorsIds
-        GROUP BY MD_to_Actors__c]) {
-            Actor__c actor = new Actor__c();
-            actor.Id = (Id) movieActor.get('MD_to_Actors__c'); 
-            actor.Number_of_movies__c = (Integer) movieActor.get('MoviesCount');
-            actorsToUpdate.add(actor);
-        }
+        WITH SECURITY_ENFORCED
+        GROUP BY MD_to_Actors__c];
 
-        try {
-            update actorsToUpdate;
-        } catch (DmlException e){
-           System.debug('An execption was raised while updating actors ' + e.getMessage());
+        if (Schema.sObjectType.Actor__c.fields.Number_of_movies__c.isUpdateable()) {
+            for (AggregateResult movieActor : movieActors) {
+                Actor__c actor = new Actor__c();
+                actor.Id = (Id) movieActor.get('MD_to_Actors__c'); 
+                actor.Number_of_movies__c = (Integer) movieActor.get('MoviesCount');
+                actorsToUpdate.add(actor);
+            }
+            Database.SaveResult[] saveResults = Database.update(actorsToUpdate, false);
+            Log.error(saveResults);
         }
     }
 
@@ -32,41 +32,38 @@ public with sharing class MovieActorTriggerHelper {
             movieIds.add(movieActor.MD_to_Movies__c);
         }
 
-        System.debug('movie ids calculate percent ' + movieIds);
-
-        for (AggregateResult movieActor : [SELECT Count(MD_to_Actors__c) actorCount, MD_to_Movies__c
+        List<AggregateResult> movieActors = [SELECT Count(MD_to_Actors__c) actorCount, MD_to_Movies__c
         FROM MovieActor__c 
         WHERE MD_to_Movies__c in: movieIds
-        GROUP BY MD_to_Movies__c]) {
-
-            Integer totalActorsInMovie = (Integer) movieActor.get('actorCount');
-            Id movieId = (Id) movieActor.get('MD_to_Movies__c'); 
-
-            AggregateResult maleActors = [Select Count(MD_to_Actors__c) actorCount
-            FROM MovieActor__c 
-            WHERE MD_to_Movies__c in: movieIds
-            AND MD_to_Actors__r.Gender__c = 'Male'];
-
-            AggregateResult femaleActors = [Select Count(MD_to_Actors__c) actorCount
-            FROM MovieActor__c 
-            WHERE MD_to_Movies__c in: movieIds
-            AND MD_to_Actors__r.Gender__c = 'Female'];
-
-            Movie__c movie = new Movie__c();
-            movie.Id = movieId;
-            movie.MaleActorsPercentage__c = (Decimal) maleActors.get('actorCount') / totalActorsInMovie * 100;
-            movie.FemaleActorsPercentage__c = (Decimal) femaleActors.get('actorCount') / totalActorsInMovie * 100;
-
-            System.debug(movie.MaleActorsPercentage__c);
-            System.debug(movie.FemaleActorsPercentage__c);
-
-            movies.add(movie);
+        WITH SECURITY_ENFORCED
+        GROUP BY MD_to_Movies__c];
+        
+        if (Schema.sObjectType.Movie__c.fields.MaleActorsPercentage__c.isUpdateable() 
+                && Schema.sObjectType.Movie__c.fields.FemaleActorsPercentage__c.isUpdateable() ) {
+            for (AggregateResult movieActor : movieActors) {
+                Integer totalActorsInMovie = (Integer) movieActor.get('actorCount');
+                Id movieId = (Id) movieActor.get('MD_to_Movies__c'); 
+    
+                AggregateResult maleActors = [Select Count(MD_to_Actors__c) actorCount
+                FROM MovieActor__c 
+                WHERE MD_to_Movies__c in: movieIds
+                AND MD_to_Actors__r.Gender__c = 'Male'];
+    
+                AggregateResult femaleActors = [Select Count(MD_to_Actors__c) actorCount
+                FROM MovieActor__c 
+                WHERE MD_to_Movies__c in: movieIds
+                AND MD_to_Actors__r.Gender__c = 'Female'];
+    
+                Movie__c movie = new Movie__c();
+                movie.Id = movieId;
+                movie.MaleActorsPercentage__c = (Decimal) maleActors.get('actorCount') / totalActorsInMovie * 100;
+                movie.FemaleActorsPercentage__c = (Decimal) femaleActors.get('actorCount') / totalActorsInMovie * 100;
+    
+                movies.add(movie);
+            }
+        Database.SaveResult[] saveResults = Database.update(movies, false);
+        Log.error(saveResults);
         }
-        try {
-            update(movies);
-        } catch (DmlException e){
-            System.debug('An execption was raised while updating movies ' + e.getMessage());
-         }
     }
 
 }
