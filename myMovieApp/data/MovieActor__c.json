@@ -1,0 +1,28 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "MovieActor__c",
+                "referenceId": "MovieActor__cRef1"
+            }
+        },
+        {
+            "attributes": {
+                "type": "MovieActor__c",
+                "referenceId": "MovieActor__cRef2"
+            }
+        },
+        {
+            "attributes": {
+                "type": "MovieActor__c",
+                "referenceId": "MovieActor__cRef3"
+            }
+        },
+        {
+            "attributes": {
+                "type": "MovieActor__c",
+                "referenceId": "MovieActor__cRef4"
+            }
+        }
+    ]
+}

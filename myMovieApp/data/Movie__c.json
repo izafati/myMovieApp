@@ -1,0 +1,43 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Movie__c",
+                "referenceId": "Movie__cRef1"
+            },
+            "Name": "bond007",
+            "MaleActorsPercentage__c": 100,
+            "FemaleActorsPercentage__c": 0,
+            "Category__c": "Action",
+            "Description__c": null,
+            "IsReleased__c": false,
+            "Release_date__c": "2023-07-15"
+        },
+        {
+            "attributes": {
+                "type": "Movie__c",
+                "referenceId": "Movie__cRef2"
+            },
+            "Name": "uncharted",
+            "MaleActorsPercentage__c": 50,
+            "FemaleActorsPercentage__c": 50,
+            "Category__c": "Adventure",
+            "Description__c": "Adventure movie with tom holland based on the famous video game series",
+            "IsReleased__c": false,
+            "Release_date__c": "2022-02-15"
+        },
+        {
+            "attributes": {
+                "type": "Movie__c",
+                "referenceId": "Movie__cRef3"
+            },
+            "Name": "frozen",
+            "MaleActorsPercentage__c": 0,
+            "FemaleActorsPercentage__c": 100,
+            "Category__c": "Comedy",
+            "Description__c": "Kids disney movie",
+            "IsReleased__c": false,
+            "Release_date__c": "2021-01-10"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+sfdx force:data:tree:export -u mymovieapp-org --query \
+"SELECT Id, Name, Gender__c, Number_of_movies__c FROM Actor__c" \
+--outputdir ./data --json
+
+sfdx force:data:tree:import -f data/Actor__c.json -u mymovieapp 
+
+
+sfdx force:data:tree:export -u mymovieapp-org --query \
+"SELECT Id, Name, MaleActorsPercentage__c, FemaleActorsPercentage__c, Category__c, Description__c, IsReleased__c, Release_date__c FROM Movie__c" \
+--outputdir ./data --json
+
+sfdx force:data:tree:import -f data/Movie__c.json -u mymovieapp 
+
+sfdx force:data:tree:export -u mymovieapp-org --query \
+"SELECT Id, MD_to_Actors__c, MD_to_Movies__c FROM MovieActor__c" \
+--outputdir ./data --json
+
+sfdx force:data:tree:import -f data/MovieActor__c.json -u mymovieapp 

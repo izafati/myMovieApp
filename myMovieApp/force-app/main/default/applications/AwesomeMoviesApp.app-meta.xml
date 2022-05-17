@@ -12,6 +12,8 @@
     <label>AwesomeMoviesApp</label>
     <navType>Standard</navType>
     <tabs>standard-home</tabs>
+    <tabs>standard-AppLauncher</tabs>
+    <tabs>Movie_Catalog</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>AwesomeMoviesApp_UtilityBar</utilityBar>
 </CustomApplication>

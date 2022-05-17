@@ -1,0 +1,31 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Actor__c",
+                "referenceId": "Actor__cRef1"
+            },
+            "Name": "James",
+            "Gender__c": "Male",
+            "Number_of_movies__c": 1
+        },
+        {
+            "attributes": {
+                "type": "Actor__c",
+                "referenceId": "Actor__cRef2"
+            },
+            "Name": "Tom",
+            "Gender__c": "Male",
+            "Number_of_movies__c": 1
+        },
+        {
+            "attributes": {
+                "type": "Actor__c",
+                "referenceId": "Actor__cRef3"
+            },
+            "Name": "Jessica",
+            "Gender__c": "Female",
+            "Number_of_movies__c": 2
+        }
+    ]
+}
