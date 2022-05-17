@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Lead Search" icon-name="standard:search" class="slds--around_medium">
+        <div class="slds-box slds-theme_default">
+            <lightning-input
+                label="Search Term"
+                variant="label-hidden"
+                placeholder="Search by name, phone, website, or address"
+                type="text"
+                value={searchTerm}
+                onchange={handleSearchTermChange}>
+            </lightning-input>
+        </div>
+        <div class="slds-m-around_small">
+           <!-- 
+                <template if:true={leads}>
+                <template for:each={leads} for:item="lead">
+                    <c-lead-list-item key={lead.Id} lead={lead}></c-lead-list-item>
+                </template>
+            </template>
+             -->
+            <lightning-datatable 
+                key-field="id"
+                data={leads}
+                columns={cols}
+                onrowaction={handleRowAction}
+                hide-checkbox-column="true">
+            </lightning-datatable>
+        </div>
+
+        <template if:true={error}>
+            <c-error-panel errors={error}>
+            </c-error-panel> 
+        </template>
+    </lightning-card>
+</template>
