@@ -1,3 +1,77 @@
 <template>
-    
+    <div class="slds-modal slds-fade-in-open slds-backdrop">  
+        <div class="slds-modal__container">  
+          <!------HEADER Section-->  
+          <div class="slds-modal__header">  
+            <lightning-button-icon icon-name="utility:close" alternative-text="Close this window" size="large"  
+              variant="bare-inverse" onclick={closeModal} class="slds-modal__close">  
+            </lightning-button-icon>  
+            <h2>Create a new Movie Record</h2>  
+          </div>  
+          <!------Body Section-->  
+          <div class="slds-modal__content slds-p-around_medium">  
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2 slds-p-right_xx-large">
+                        <legend class="slds-form-element__legend slds-form-element__label">Name *</legend>
+                        <lightning-input 
+                                type="text" 
+                                name="Name" 
+                                variant="label-hidden" 
+                                placeholder="Enter Movie Name"
+                                onchange={handleName}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-right_xx-large">
+                        <legend class="slds-form-element__legend slds-form-element__label">Category *</legend>
+                        <lightning-combobox
+                            name="Category"
+                            variant="label-hidden"
+                            source-label="Available"
+                            field-level-help="Select the movie category"
+                            options={categoryPicklistOptions}
+                            onchange={handleCategory}
+                        ></lightning-combobox>
+                    </div>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2 slds-p-right_xx-large slds-p-top_large">
+                        <lightning-dual-listbox name="actors"
+                            label="Select Actors"
+                            source-label="Available"
+                            selected-label="Selected"
+                            field-level-help="Select the movie actors"
+                            options={actorOptions}
+                            onchange={handleActorOptions}></lightning-dual-listbox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-right_xx-large slds-p-top_large">
+                        <legend class="slds-form-element__legend slds-form-element__label">Release Date *</legend>
+                        <lightning-input 
+                            type="date"  
+                            placeholder="Choose a release date"
+                            variant="label-hidden"
+                            onchange={handleReleaseDate}
+                            ></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2 slds-p-right_xx-large slds-p-top_large">
+                        <legend class="slds-form-element__legend slds-form-element__label">Description</legend>
+                        <lightning-textarea 
+                                name="description" 
+                                variant="label-hidden"
+                                placeholder="Enter movie description"
+                                onchange={handleDescription}
+                        ></lightning-textarea>
+                    </div>
+                </div>
+          </div>  
+          <!------Footer Section-->  
+          <div class="slds-modal__footer">  
+            <lightning-button variant="brand" label="Save" title="Save"
+            class="slds-m-left_x-small slds-p-right_xx-small" disabled={disableSave} onclick={handleSaveMovie}>
+        </lightning-button>    
+            <lightning-button icon-name="utility:close" label="close" variant="brand" onclick={closeModal}>  
+            </lightning-button>  
+          </div>  
+          </div>
+    </div>  
 </template>
