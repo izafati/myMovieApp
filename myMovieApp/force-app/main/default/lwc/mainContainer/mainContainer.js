@@ -41,7 +41,6 @@ export default class MainContainer extends LightningElement {
     }
 
     refreshMovieList(event){
-        console.log('refresh');
         refreshApex(this.wiredMovieList)
         .then(() => {
             let movieId = event.detail;

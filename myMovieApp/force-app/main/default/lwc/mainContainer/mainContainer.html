@@ -22,7 +22,7 @@
                         <template if:true={error}>
                             <c-error-panel errors={error}>
                             </c-error-panel> 
-                        </template>
+                        </template> 
                         </div>
                     </lightning-layout-item>
                     <lightning-layout-item padding="around-small" size="6">
@@ -38,8 +38,8 @@
         </lightning-layout>
     </div>
 <template if:true={openNewMovieModal}>
-    <c-new-movie-modal-lwc 
+    <c-new-movie-modal-l-w-c
         onclosemodal={closeNewMovieModal}
-        onrefreshmovie={refreshMovieList}></c-new-movie-modal-lwc>
+        onrefreshmovie={refreshMovieList}></c-new-movie-modal-l-w-c>
 </template>
 </template>

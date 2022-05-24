@@ -9,18 +9,14 @@ public with sharing class MovieActorTriggerHandler extends TriggerHandler{
         newMovieActorMap = (Map<Id, MovieActor__c>) Trigger.newMap;
    }
   
-   protected override void afterInsert() {
+    protected override void afterInsert() {
         MovieActorTriggerHelper.updateNumberOfMovies(newMovieActorList);
         MovieActorTriggerHelper.calculateGenderPercentage(newMovieActorList);
    }
 
-   protected override void afterUpdate() {
-        MovieActorTriggerHelper.updateNumberOfMovies(newMovieActorList);
-        MovieActorTriggerHelper.calculateGenderPercentage(newMovieActorList);
-      }
     
     protected override void afterDelete() {
-        MovieActorTriggerHelper.updateNumberOfMovies(oldMovieActorList);
-        MovieActorTriggerHelper.calculateGenderPercentage(oldMovieActorList);
-      }
+        MovieActorTriggerHelper.updateNumberOfMoviesOnDelete(newMovieActorList);
+        MovieActorTriggerHelper.calculateGenderPercentage(newMovieActorList);
+      } 
 }

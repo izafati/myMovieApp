@@ -7,22 +7,28 @@ public with sharing class MovieActorTriggerHelper {
         for(MovieActor__c movieActor : movieActorList) {
             actorsIds.add(movieActor.MD_to_Actors__c);
         }
-        List<AggregateResult> movieActors = [SELECT MD_to_Actors__c, Count(MD_to_Movies__c) MoviesCount 
-        FROM MovieActor__c 
-        WHERE MD_to_Actors__c in: actorsIds
-        WITH SECURITY_ENFORCED
-        GROUP BY MD_to_Actors__c];
 
-        if (Schema.sObjectType.Actor__c.fields.Number_of_movies__c.isUpdateable()) {
-            for (AggregateResult movieActor : movieActors) {
-                Actor__c actor = new Actor__c();
-                actor.Id = (Id) movieActor.get('MD_to_Actors__c'); 
-                actor.Number_of_movies__c = (Integer) movieActor.get('MoviesCount');
-                actorsToUpdate.add(actor);
+        for (Actor__c actor : [SELECT Id,(Select Id FROM MovieActors__r) 
+        FROM Actor__c
+        WHERE Id IN:actorsIds
+        WITH SECURITY_ENFORCED]){
+            System.debug(' name ' + actor.Name + '  ' + actor.Number_of_movies__c);
+            if (Schema.sObjectType.Actor__c.fields.Number_of_movies__c.isUpdateable()) {
+                    actor.Number_of_movies__c = actor.MovieActors__r.size();
+                    actorsToUpdate.add(actor);
             }
-            Database.SaveResult[] saveResults = Database.update(actorsToUpdate, false);
-            Log.error(saveResults);
         }
+                Database.SaveResult[] saveResults = Database.update(actorsToUpdate, false);
+                Log.error(saveResults);
+    }
+
+    public static void updateNumberOfMoviesOnDelete(List<MovieActor__c> movieActorList) {
+        List<Actor__c> actors = [SELECT Id, Number_of_movies__c FROM Actor__c WITH SECURITY_ENFORCED];
+        for (Actor__c actor: actors) {
+            actor.Number_of_movies__c = 0;
+        }
+        Database.SaveResult[] saveResults = Database.update(actors, false);
+        Log.error(saveResults);
     }
 
     public static void calculateGenderPercentage(List<MovieActor__c> movieActorList){
