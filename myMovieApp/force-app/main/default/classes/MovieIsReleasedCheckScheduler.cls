@@ -7,9 +7,5 @@ public with sharing class MovieIsReleasedCheckScheduler implements Schedulable{
         Id batchId = Database.executeBatch(batch, 10);
     }
 
-/*     SupplyQtyCheckScheduler scheduler = new SupplyQtyCheckScheduler();
-    String cronExpression = '0 8 * * *';
-    String jobId = System.schedule('Check and update isReleased field for movies', cronExpression, scheduler);
-     */
 }
 

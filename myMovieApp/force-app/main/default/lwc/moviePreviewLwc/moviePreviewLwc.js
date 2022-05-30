@@ -11,6 +11,7 @@ import MOVIE_OBJECT from '@salesforce/schema/Movie__c';
 import NAME_FIELD from '@salesforce/schema/Movie__c.Name';
 import CATEGORY_FIELD from '@salesforce/schema/Movie__c.Category__c';
 import RELEASE_FIELD_FIELD from '@salesforce/schema/Movie__c.Release_date__c';
+import StayInTouchSubject from '@salesforce/schema/User.StayInTouchSubject';
 
 export default class MoviePreviewLwc extends LightningElement {
 

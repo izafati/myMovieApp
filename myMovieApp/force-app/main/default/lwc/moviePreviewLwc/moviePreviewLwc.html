@@ -5,6 +5,7 @@
             <header>
                 <h2>
                     <p class="slds-card__header-link slds-truncate">
+                        Title : 
                         <span class="slds-text-heading_small">{movie.Name}</span>
                     </p>
                 </h2>
@@ -13,8 +14,10 @@
         <div class="slds-illustration slds-illustration_small">
             <img src="https://www.lightningdesignsystem.com/assets/images/carousel/carousel-01.jpg"/>
             <div class="slds-text-longform">
-                <h3 class="slds-text-heading_medium">{movie.Category__c}</h3>
-                <p class="slds-text-body_regular">{movie.Release_date__c}</p>
+                <h3 class="slds-text-heading_medium">Category : <span>{movie.Category__c}</span></h3>
+                <p class="slds-text-font_heading">Male Actors Percentage : <span>{movie.MaleActorsPercentage__c} % </span></p>
+                <p class="slds-text-body_regular">Female Actors Percentage : <span>{movie.FemaleActorsPercentage__c} % </span></p>
+                <p class="slds-text-font_monospace">Release Date : <span>{movie.Release_date__c}</span></p>
             </div>
         </div>
         <footer class="slds-card__footer">

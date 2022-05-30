@@ -20,7 +20,14 @@ export default class MainContainer extends LightningElement {
 
     showMovie(event) {
         this.selectedMovie = event.target.movie;
-      }
+        this.selectedMovie.MaleActorsPercentage__c =  this.selectedMovie.MaleActorsPercentage__c  ? 
+                                    Math.floor(this.selectedMovie.MaleActorsPercentage__c) :
+                                    0;
+        this.selectedMovie.FemaleActorsPercentage__c =  this.selectedMovie.FemaleActorsPercentage__c  ? 
+                                    Math.floor(this.selectedMovie.FemaleActorsPercentage__c) :
+                                    0;
+                                                               
+    }
 
     handleNewSearch(event) {
         this.searchTerm = event.detail;
@@ -51,7 +58,8 @@ export default class MainContainer extends LightningElement {
             } else {
                 this.selectedMovie = undefined;
             }
-        })
-                        
+        })                
     }
+
+    
 }

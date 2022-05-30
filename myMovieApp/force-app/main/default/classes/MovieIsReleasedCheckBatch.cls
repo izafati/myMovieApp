@@ -17,6 +17,8 @@ public with sharing class MovieIsReleasedCheckBatch implements Database.Batchabl
 
     //finish
     public void finish(Database.BatchableContext bc) {
-        Log.error(updateResults);
+        if(updateResults != null){
+            Log.error(updateResults);
+        }
     }
 }

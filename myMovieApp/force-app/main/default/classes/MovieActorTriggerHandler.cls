@@ -1,6 +1,8 @@
 public with sharing class MovieActorTriggerHandler extends TriggerHandler{
-    private List<MovieActor__c> oldMovieActorList, newMovieActorList;
-    private Map<Id, MovieActor__c> oldMovieActorMap, newMovieActorMap;
+    private List<MovieActor__c> oldMovieActorList;
+    private List<MovieActor__c>  newMovieActorList;
+    private Map<Id, MovieActor__c> oldMovieActorMap;
+    private Map<Id, MovieActor__c> newMovieActorMap;
   
    public MovieActorTriggerHandler() {
         oldMovieActorList = (List<MovieActor__c>) Trigger.old;
@@ -16,7 +18,6 @@ public with sharing class MovieActorTriggerHandler extends TriggerHandler{
 
     
     protected override void afterDelete() {
-        MovieActorTriggerHelper.updateNumberOfMoviesOnDelete(newMovieActorList);
-        MovieActorTriggerHelper.calculateGenderPercentage(newMovieActorList);
+        MovieActorTriggerHelper.updateNumberOfMovies(oldMovieActorList);
       } 
 }
